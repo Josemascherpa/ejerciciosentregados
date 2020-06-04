@@ -76,6 +76,7 @@ int main(int argc, char *argv[]) {
 							suma = suma +0.5;break;
 						case 12:	
 							suma = suma +0.5;break;
+						default:break;
 						}
 						cout<<"Carta "<<contadorcarta<<":"<<carta<<palos<<". Y suma: "<<suma<<" puntos."<<endl;
 						contadorcarta++;
@@ -129,6 +130,7 @@ int main(int argc, char *argv[]) {
 							sumacompu = sumacompu +0.5;break;
 						case 12:	
 							sumacompu= sumacompu +0.5;break;
+						default:break;
 						}
 						
 						cout<<endl<<"Ahora me toca a mi!"<<endl;
@@ -170,6 +172,7 @@ int main(int argc, char *argv[]) {
 										palos=" de Espada";break;
 									case 3:
 										palos=" de Oro";break;
+									default:break;
 									}
 									
 									switch(carta){
@@ -193,6 +196,7 @@ int main(int argc, char *argv[]) {
 										sumacompu = sumacompu +0.5;break;
 									case 12:	
 										sumacompu = sumacompu +0.5;break;
+									default:break;
 									}
 									
 									cout<<"Carta "<<contadorcompu<<": "<<carta<<palos<<". Y suma: "<<sumacompu<<" puntos."<<endl;
