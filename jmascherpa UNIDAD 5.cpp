@@ -5,11 +5,11 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 	srand(time(NULL));
-	int mazo[4][10] = {{1,2,3,4,5,6,7,10,11,12},{1,2,3,4,5,6,7,10,11,12},{1,2,3,4,5,6,7,10,11,12},{1,2,3,4,5,6,7,10,11,12}};
-	float valorCartas[13],suma=0,sumaCompu=0;
-	int carta=0,fila=0,columna,contadorCarta=1;
-	bool gameonn=false;
-	string palos;
+	int mazo[4][10] = {{1,2,3,4,5,6,7,10,11,12},{1,2,3,4,5,6,7,10,11,12},{1,2,3,4,5,6,7,10,11,12},{1,2,3,4,5,6,7,10,11,12}};//arreglo para el mazo bidimensional, divido en filas y columnas
+	float valorCartas[13],suma=0,sumaCompu=0;//variables de suma para los puntos, y el arreglo valorcartas para la explicacion de los valores.
+	int carta=0,fila=0,columna=0,contadorCarta=1;//variables de carta para guardar el numero que toca, fila y vraiable para el random de la carta, y contador carta para saber cuantas cartas van saliendo.
+	bool gameonn=false;//mantener el juego ON
+	string palos;//Para especificar los palos de las cartas.
 	
 	cout<<endl<<"El juego es el Siete y medio. El objetivo es acercarse a 7 y medio sin pasarse, sacando cartas. El jugador mas cercano al puntaje 7.5 gana. Aclaracion: se juega sin 8 y sin 9 ni comodines."<<endl;
 	cout<<"\n"<<endl;
@@ -29,25 +29,28 @@ int main(int argc, char *argv[]) {
 		
 		cout<<i<<"-->"<<valorCartas[i]<<endl;
 		cout<<"\n";
-	}
+	} // Mostrar al usuario valor de las cartas e instrucciones de como funciona el juego
 	
 	cout<<"Presione S para sacar una carta: "<<endl;
 	
-	while(gameonn==false){
+	while(gameonn==false){//Empieza el juego
 		
 		
-		if(kbhit()){
+		if(kbhit()){//funcion de detectar tecla presionada
 			
-			int tecla=getch();
+			int tecla=getch();//detectar que tecla exacta se presiona, y se guarda en la variable tecla
 			
-			switch(tecla){
+			switch(tecla){//switch para que si se presiona la letra S haga tal cosa, y si se presiona N haga tal cosa.
 			case 115:
 				
-				fila=rand()%4;
-				columna=rand()%10;
+				
+				fila=rand()%4+1;
+				columna=rand()%10+1;
 				carta=mazo[fila][columna];
 				
-				while((mazo[fila][columna])!=-1){
+				
+				
+				while((mazo[fila][columna])!=-1){//mientras los rand no salgan como una carta que ya salio, que decida el palo y cuanto suma segun la carta.
 					switch(fila){
 					case 0:
 						palos=" de Basto";break;
@@ -83,26 +86,31 @@ int main(int argc, char *argv[]) {
 					default:break;
 					}
 					cout<<"Carta "<<contadorCarta<<":"<<carta<<palos<<". Y suma: "<<suma<<" puntos."<<endl;
-					contadorCarta++;
+					
+					
+					
+					contadorCarta++;//Contador para ver cuantas cartas va sacando.
+					
 					if(suma>7.5){
 						cout<<"Usted Perdio :(."<<endl;return 0;
 					}
-					cout<<endl<<"Si desea sacar otra carta presione S(si) sino N(no)."<<endl;
 					
-					mazo[fila][columna]=-1;
+					cout<<endl<<"Si desea sacar otra carta presione S(si) sino N(no)."<<endl;//opcion para que siga jugando o le de el turno a la computadora.
+					
+					mazo[fila][columna]=-1;//poniendo carta que ya salio en -1, para detectarla y que no vuevla a salir.
 				} 
 				
 				break;
 				
 				
-			case 110:
+			case 110://En caso que se presione la letra N
 				int contadorCompu=1;
 				
-				fila=rand()%4;
-				columna=rand()%10;
-				carta=mazo[fila][columna];
+				fila=rand()%4+1;
+				columna=rand()%10+1;
+				carta=mazo[fila][columna];//sacando rand de fila y columna, y ubicar el numero en la matriz e igualarla a carta.
 				
-				while((mazo[fila][columna])!=-1){
+				while((mazo[fila][columna])!=-1){//verificando que carta no sea repetida.
 					
 					switch(fila){
 					case 0:
@@ -142,9 +150,9 @@ int main(int argc, char *argv[]) {
 					
 					cout<<"Carta "<<contadorCompu<<": "<<carta<<palos<<". Y suma: "<<sumaCompu<<" puntos."<<endl;
 					
-					contadorCompu++;
+					contadorCompu++;//contador de cartas que saco la compu.
 					
-					mazo[fila][columna]=-1;
+					mazo[fila][columna]=-1;//poniendo carta en -1 , para que si vuelva a salir se rechaze, y salga otra.
 					
 					if(sumaCompu==7 && (suma<7 || suma>7.5)){
 						cout<<"Usted perdio..."<<endl;return 0;
@@ -154,20 +162,20 @@ int main(int argc, char *argv[]) {
 						cout<<"Te gane.. te lo dije."<<endl;return 0;
 					}
 					
-					while(sumaCompu<=7.5 || sumaCompu>suma){
+					while(sumaCompu<=7.5 || sumaCompu>suma){//detectando para que la compu siga sacando, y decida si sacar otra carta o no.
 						
 						if(sumaCompu==7 && suma<7 || suma>7.5){
 							cout<<"Usted perdio..."<<endl;return 0;
 						}
 						
-						if(sumaCompu<7.5 || sumaCompu<7){
-							fila=rand()%4;
+						if(sumaCompu<7.5 || sumaCompu<7){//sacando otra carta para tratar de llegar lo mas cercano posible a 7.5.
+							fila=rand()%4+1;
 							
-							columna=rand()%10;
+							columna=rand()%10+1;
 							
 							carta=mazo[fila][columna];
 							
-							while((mazo[fila][columna])!=-1){
+							while((mazo[fila][columna])!=-1){//mientras carta sea distinta de -1, osea repetida, que siga.Y los switch en caso de tal fila(palos) y tal carta.
 								switch(fila){
 								case 0:
 									palos=" de Basto";break;
@@ -211,15 +219,15 @@ int main(int argc, char *argv[]) {
 							}
 						}
 						
-						if(sumaCompu==7.5 && suma==7.5){
+						if(sumaCompu==7.5 && suma==7.5){//If para la logica.
 							cout<<"Te gane :)"<<endl;return 0;
 						}
 						
-						if(sumaCompu>7.5){
+						if(sumaCompu>7.5){//If para la logica.
 							cout<<"Ganaste.. cuestion de suerte.."<<endl;return 0;
 						}
 						
-						if(sumaCompu>suma && suma<7.5){
+						if(sumaCompu>suma && suma<7.5){//If para la logica.
 							cout<<"Te gane.. te lo dije."<<endl;return 0;
 						}
 					}
