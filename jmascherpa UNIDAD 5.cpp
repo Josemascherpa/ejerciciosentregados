@@ -44,8 +44,8 @@ int main(int argc, char *argv[]) {
 			case 115:
 				
 				
-				fila=rand()%4+1;
-				columna=rand()%10+1;
+				fila=rand()%4;
+				columna=rand()%10;
 				carta=mazo[fila][columna];
 				
 				
@@ -106,8 +106,8 @@ int main(int argc, char *argv[]) {
 			case 110://En caso que se presione la letra N
 				int contadorCompu=1;
 				
-				fila=rand()%4+1;
-				columna=rand()%10+1;
+				fila=rand()%4;
+				columna=rand()%10;
 				carta=mazo[fila][columna];//sacando rand de fila y columna, y ubicar el numero en la matriz e igualarla a carta.
 				
 				while((mazo[fila][columna])!=-1){//verificando que carta no sea repetida.
@@ -169,9 +169,9 @@ int main(int argc, char *argv[]) {
 						}
 						
 						if(sumaCompu<7.5 || sumaCompu<7){//sacando otra carta para tratar de llegar lo mas cercano posible a 7.5.
-							fila=rand()%4+1;
+							fila=rand()%4;
 							
-							columna=rand()%10+1;
+							columna=rand()%10;
 							
 							carta=mazo[fila][columna];
 							
@@ -218,7 +218,9 @@ int main(int argc, char *argv[]) {
 								mazo[fila][columna]=-1;
 							}
 						}
-						
+						if(sumaCompu==suma){
+							cout<<"Te gane :)"<<endl;return 0;
+						}
 						if(sumaCompu==7.5 && suma==7.5){//If para la logica.
 							cout<<"Te gane :)"<<endl;return 0;
 						}
