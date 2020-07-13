@@ -2,9 +2,10 @@
 #include <conio2.h>
 using namespace std;
 
-class Ficha{
+class Ficha{//Se crea la clase ficha.
 private:
 	char figura;
+	
 public:
 	
 	Ficha();
@@ -16,23 +17,23 @@ public:
 	bool figuraO();
 };
 
-Ficha::Ficha(){
+Ficha::Ficha(){//Constructor para poner "vacia la ficha"
 	figura =' ';
 }
 
-Ficha::Ficha(char c){
+Ficha::Ficha(char c){//Constructor para igualar c a figura
 	figura=c;
 }
 
-char Ficha::getFicha(){
+char Ficha::getFicha(){//Se hace un get para devolver figura
 	return figura;
 }
 
-void Ficha::setFicha(char _figura){
+void Ficha::setFicha(char _figura){//Metodo para setear la ficha
 	figura = _figura;  
 }
 
-bool Ficha::verificarFicha(){
+bool Ficha::verificarFicha(){//Verifica si la ficha es X u O,  y devuelve un return
 	
 	if((figura!='X') && (figura!='O')){
 		return true;
@@ -41,7 +42,7 @@ bool Ficha::verificarFicha(){
 	}
 }
 
-bool Ficha::figuraX(){
+bool Ficha::figuraX(){//Verifica si ficha es X
 	
 	if(figura=='X'){
 		return true;
@@ -49,7 +50,7 @@ bool Ficha::figuraX(){
 		return false;
 	}
 }
-bool Ficha::figuraO(){
+bool Ficha::figuraO(){//Verifica si ficha es O
 	
 	
 	
@@ -65,13 +66,13 @@ bool Ficha::figuraO(){
 }
 
 
-class Tablero{
+class Tablero{//Se crea clase Tablero
 private:
 	
 public:
-	Ficha mapa[3][3];
-	Tablero();
-	Ficha F;
+	Ficha mapa[3][3];//Arreglo haciendo referencia al mapa
+	Tablero();//Constructor
+	Ficha F;//Creando ficha dentro de tablero
 	void ponerFicha(int x,int y, char c);
 	void dibujarTablero();
 	void gestionJuego();
@@ -81,7 +82,7 @@ public:
 };
 Tablero::Tablero(){}
 
-void Tablero::dibujarTablero(){
+void Tablero::dibujarTablero(){//Metodo para dibujar tablero
 	
 	for(int i=0;i<3;i++){
 		cout<<"        ";
@@ -92,12 +93,12 @@ void Tablero::dibujarTablero(){
 	}
 }
 
-void Tablero::ponerFicha(int x,int y, char c){
+void Tablero::ponerFicha(int x,int y, char c){//Pone ficha en el arreglo mapa, en cierta coordenada.
 	
 	mapa[x][y] = c;
 	
 }
-bool Tablero::ganadorTateti(){
+bool Tablero::ganadorTateti(){//Metodo bool que verifica si en esa coordenada del arreglo hay una ficha o no, ya sea X o O.
 	
 	if((mapa[0][0].figuraX()) && (mapa[1][1].figuraX())&& (mapa[2][2].figuraX())){
 		cout<<"Ganador del tateti es el jugador 1."<<endl;return true;
@@ -164,7 +165,7 @@ bool Tablero::ganadorTateti(){
 	
 }
 
-void Tablero::numerosDisponibles(){
+void Tablero::numerosDisponibles(){//Verifica si en cierta coordenada del arreglo hay una ficha o no, si no hay ficha pone la opcion para que se pueda colocar ahi.
 	
 	
 	if((mapa[0][0].verificarFicha())){
@@ -194,16 +195,15 @@ void Tablero::numerosDisponibles(){
 	if((mapa[2][2].verificarFicha())){
 		cout<<"Presione 9 para colocar ficha en (2,2)"<<endl;  
 	}
-	/*if(!ganadorTateti()){
+	if(!ganadorTateti()){
 	cout<<"Elija una opcion: "<<endl;
-	
-	}*///PREGUNTAR PROFE
+	}
 	
 }
 
 
 
-bool Tablero::tableroCompleto(){
+bool Tablero::tableroCompleto(){//Detecta si el tablero esta lleno y nadie gano.
 	int contador = 0;
 	for(int i = 0;i<3;i++){
 		for(int j=0;j<3;j++){
@@ -219,29 +219,29 @@ bool Tablero::tableroCompleto(){
 	return false;
 	
 }
-class Juego{
+class Juego{//Se crea la clase juego.
 	
 	private:
 	public:
-	Juego();
-	Tablero T;
-	Ficha F;
+	Juego();//COnstructor
+	Tablero T;//Se inicializa tablero.
+	Ficha F;//Se inicializa ficha.
 	void gestionJuego();
 };
 
-Juego::Juego(){
+Juego::Juego(){//Constructor juego
 	
 }
-void Juego::gestionJuego(){
-	int cont=0;
-	bool gameon = false;
-	T.numerosDisponibles();
+void Juego::gestionJuego(){//metodo void, donde se maneja todo el juego, llamando los demas metodos de las otras clases.
+	int cont=0;//Contador para el turno de los jugadores.
+	bool gameon = false;//mantener el juego iniciado.
+	T.numerosDisponibles(); //Metodo ver numeros disponibles para colocar ficha n el mapa.
 	while(gameon==false){
 		int x,y;
-		int contGanador=0;
-		if(kbhit()){
+		int contGanador=0;//Contador para finalizar el juego al hacer tateti.
+		if(kbhit()){//Funcion para detectar presion de teclas
 			int tecla=getch();
-			switch(tecla){
+			switch(tecla){//en caso que la tecla sea..
 			case 49:
 				
 				x=0;y=0;
@@ -283,11 +283,11 @@ void Juego::gestionJuego(){
 			}
 			
 			if(cont%2==0){
-				if((T.mapa[x][y]).verificarFicha()){
-					T.ponerFicha(x,y,'X');
+				if((T.mapa[x][y]).verificarFicha()){//Si es true esta condicion
+					T.ponerFicha(x,y,'X');//Si se presiona un numero, colocar la ficha en:
 					cont++;
 				}else{
-					cout<<"Ese lugar ya esta ocupado, elija otro numero."<<endl;
+					cout<<"Ese lugar ya esta ocupado, elija otro numero."<<endl;//Si ya hay una ficha en ese lugar.
 				}
 			}else if(cont%2!=0){
 				if((T.mapa[x][y]).verificarFicha()){ 
@@ -298,19 +298,19 @@ void Juego::gestionJuego(){
 				}
 			}
 			cout<<endl;
-			T.dibujarTablero();
+			T.dibujarTablero();//Muestra tablero con fichas
 			cout<<endl;
 			
 			cout<<"/////////////////////////////////"<<endl;
-			if(T.ganadorTateti()){
+			if(T.ganadorTateti()){//Si hay tateti, termina el juego.
 				contGanador++;
 				break;
 			}
-			if((T.tableroCompleto())&& contGanador==0 ){
+			if((T.tableroCompleto())&& contGanador==0 ){//Si no hay tateti, y e ltablero esta completo termina el juego.
 				cout<<"Nadie gano :("<<endl;break;
 			}
 			
-			if((contGanador==0)&&(cont%2==0)){
+			if((contGanador==0)&&(cont%2==0)){//Turnos de jugadores.
 				cout<<"Le toca al jugador 1: X"<<endl;
 			}else if((contGanador==0)&&(cont%2!=0)){
 				cout<<"Le toca al jugador 2: O"<<endl;
